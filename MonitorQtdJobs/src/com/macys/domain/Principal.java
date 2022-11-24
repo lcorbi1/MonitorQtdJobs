@@ -10,7 +10,7 @@ public class Principal {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException, InterruptedException {
 		
-		//String od = "20221118";
+		//String od = "20221117";
 		String od = "date +\"%Y%m%d\""; //Here It is gonna run a OS command to get the date
 		//String od = "ssh root@192.168.182.165 -t 'uptime'";
 				
@@ -27,14 +27,14 @@ public class Principal {
 
 		int quantityOfArguments = args.length;
 
-		if (quantityOfArguments > 0) {
-			System.out.println("The program NOT accepts arguments!");
+		if (quantityOfArguments > 1 || quantityOfArguments == 0) {
+			System.out.println("The program ACCEPTS ONLY 1 argument! Parameter threshold MUST be an INTEGER number, for example: 100000 in which it means 100 thousand of tasks.");
 		} else {
 			int total = rdao.showQuantityOfJobsIn24Hours(od);
 
 			int threshold = 0;
 
-			threshold = 300;
+			threshold = Integer.parseInt(args[0]);
 
 			if (total <= threshold) {
 				System.out.println("There are less than 300 jobs!");
