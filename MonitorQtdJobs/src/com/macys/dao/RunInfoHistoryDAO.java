@@ -38,4 +38,13 @@ public class RunInfoHistoryDAO {
 		
 	}
 	
+	/*public static void main(String[] args) throws ClassNotFoundException, IOException, InterruptedException {
+		
+		RunInfoHistoryDAO ridao = new RunInfoHistoryDAO();
+		int y = ridao.showQuantityOfJobsIn24Hours("20221129");
+		
+		System.out.println("y: " + y);
+		
+	}*/
+	
 }

@@ -30,18 +30,37 @@ public class Principal {
 		if (quantityOfArguments > 1 || quantityOfArguments == 0) {
 			System.out.println("The program ACCEPTS ONLY 1 argument! Parameter threshold MUST be an INTEGER number, for example: 100000 in which it means 100 thousand of tasks.");
 		} else {
-			int total = rdao.showQuantityOfJobsIn24Hours(od);
+			//int total = rdao.showQuantityOfJobsIn24Hours(od);
+			int total = rdao.showQuantityOfJobsIn24Hours(resultprt.replaceAll("\"", "")); //replace takes out the double quotes from String value
 
 			int threshold = 0;
 
 			threshold = Integer.parseInt(args[0]);
+			String linemail = "lucashc@kyndryl.com";
+			String fullPathToLogExecution = "/tmp/MonitorExecuted";
+			Process psend = null;
+		
+			/*System.out.println("");
+			System.out.println("Total: " + total);
+			System.out.println("Threshold: " + threshold);
+			System.out.println("");*/
 
 			if (total <= threshold) {
-				System.out.println("There are less than 300 jobs!");
+				System.out.println("There are less than " + threshold + " jobs!");
 			} else {
-				System.out.println("CAUTION!! There are more than 300 JOBS running daily! Currently running: " + total
+				System.out.println("CAUTION!! There are more than "  + threshold + " JOBS running daily! Currently running: " + total
 						+ " jobs running in the day!");
+				
+				String smail = "mail -s " + "\"THERE ARE MORE THAN " + threshold + " Please, check that! THANK YOU!" + linemail + " < " +  fullPathToLogExecution;
+				
+				String[] cmdsendmail = { "/bin/sh", "-c", smail };
+				
+				Runtime rtsendmail = Runtime.getRuntime();
+				psend = rtsendmail.exec(cmdsendmail);
+				psend.waitFor();
+				
 			}
+			psend.destroy();
 		}
 		prt.destroy();
 	}
