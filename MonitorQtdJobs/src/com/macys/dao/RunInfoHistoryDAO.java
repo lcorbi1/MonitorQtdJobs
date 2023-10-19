@@ -19,7 +19,7 @@ public class RunInfoHistoryDAO {
 		try (Connection conexao = cf.conectar();) {
 			
 			//System.out.println("Sucesso!");
-			String sqlGet = "select count(order_date)  from runinfo_history where order_date like ?";
+			String sqlGet = "select count(order_date)  from runinfo_history where order_date like ? AND ended_status = 16";
 			PreparedStatement pstm = conexao.prepareStatement(sqlGet);
 			pstm.setString(1, orderDate);
 			
